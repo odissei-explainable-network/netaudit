@@ -12,13 +12,13 @@ import polars as pl
 logger = logging.getLogger(__name__)
 
 
-def process_edge_list_batched(edgelist_filename, adjacency_list_dir, chunk_size=10000, directed=False):
+def process_edge_list_batched(edgelist_filename, adjacency_list_dir, chunk_size=10000):
     logger.info("Starting collecting edges")
     # Read edgelist from parquet file without loading entire file into memory
     lf = pl.scan_parquet(edgelist_filename) # set n_rows=N for debugging
 
     # Load edges into memory in chunks
-    edge_chunks = lf.collect(streaming=True, chunk_size=chunk_size)
+    edge_chunks = lf.collect(streaming=True)
 
     logger.info("Finished collecting edges")
     logger.info("Starting processing batches")
@@ -81,7 +81,7 @@ def main(args=None):
 
     os.makedirs(args.outdir, exist_ok=True)
 
-    process_edge_list_batched(args.edgelist_filename, args.outdir, args.chunk_size, args.directed)
+    process_edge_list_batched(args.edgelist_filename, args.outdir, args.chunk_size)
 
 
 if __name__ == '__main__':
