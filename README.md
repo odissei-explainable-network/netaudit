@@ -1,6 +1,6 @@
 # NetAudit: Interpretable Population-scale Node Embeddings
 
-This repository contains code to create node embeddings for the Dutch population network created by Statistics Netherlands. The population network data are not public but can be accessed under certain [conditons](\url{https://www.cbs.nl/nl-nl/onze-diensten/maatwerk-en-microdata/microdata-zelf-onderzoek-doen}) through Statistics Netherlands.
+This repository contains code to create node embeddings for the Dutch population network created by Statistics Netherlands. The population network data are not public but can be accessed under certain [conditons](https://www.cbs.nl/nl-nl/onze-diensten/maatwerk-en-microdata/microdata-zelf-onderzoek-doen) through Statistics Netherlands.
 
 While the code for creating the embeddings is generic, we also include code for predicting three outcomes from embeddings and/or covariates using machine learning models. This code requires linking data from the LISS panel with microdata from Statistic Netherlands. The LISS panel data can be accessed through the [LISS Archive](https://www.lissdata.nl/how-it-works-archive). For details see this paper (LINK FORTHCOMING).
 
@@ -70,6 +70,15 @@ We also provide code to perform community detection with the Louvain algorithm o
 ## Requirements
 
 All Python packages needed to run the code are in `requirements.txt`. The code is intended to run on Windows and Linux.
+
+## References
+
+Perozzi, B., Al-Rfou, R., & Skiena, S. (2014). DeepWalk: Online learning of social representations. *Proceedings of the 20th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining*, 701–710. https://doi.org/10.1145/2623330.2623732
+
+Piaggesi, S., Khosla, M., Panisson, A., & Anand, A. (2023). DINE: Dimensional interpretability of node embeddings. http://arxiv.org/abs/2310.01162
+
+Tang, J., Qu, M., Wang, M., Zhang, M., Yan, J., & Mei, Q. (2015). LINE: Large-scale information network embedding. *Proceedings of the 24th International Conference on World Wide Web*, 1067–1077. https://doi.org/10.1145/2736277.2741093
+
 
 ## License
 
