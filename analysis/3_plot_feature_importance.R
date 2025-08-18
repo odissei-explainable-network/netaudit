@@ -1,6 +1,4 @@
-################################
-# Plot feature importance scores
-################################
+# Plot feature importance scores --------------------------------------------------------------
 
 library(dplyr)
 library(tidyr)
@@ -119,11 +117,11 @@ create_feature_importance_plot <- function(df) {
         mutate(label = ifelse(sum_importance < 0.01, "<0.01", as.character(round(sum_importance, 3)))) |>
         ggplot(aes(x = mean_importance, y = fct_reorder(predictor, rank))) +
         facet_wrap(vars(model, is_dine), scales = "free_y") +
-        geom_jitter(aes(color = mean_predictor), width = 0, height = 0.2, size = 3.0) +
+        geom_jitter(aes(color = mean_predictor), width = 0, height = 0.2, size = 2.0) +
         geom_label(aes(label = str_pad(label, width = max(str_width(label))), x = 0.4), family = "mono", label.size = NA) +
         scale_x_continuous(limits = c(-0.3, 0.45)) +
         scale_color_gradient2(mid = "grey", midpoint = 0.5, limits = c(0, 1), breaks = c(0, 0.5, 1)) +
-        labs(x = "SHAP value", y = NULL, color = "Normalized predictor value") +
+        labs(x = "SHAP value", y = NULL, color = "Normalized\npredictor\nvalue") +
         guides(color = guide_colorbar(title.position = "top", title.hjust = 0.5)) +
         theme_half_open() +
         theme(
@@ -131,8 +129,7 @@ create_feature_importance_plot <- function(df) {
             legend.justification = "center",
             legend.direction = "horizontal"
         ) +
-        panel_border() +
-        background_grid()
+        panel_border()
 
     return(p)
 }
@@ -176,7 +173,9 @@ plot_grid(
         p1 + theme(legend.position = "none"),
         get_legend(p1),
         ncol = 3,
-        rel_widths = c(0.5, 1, 0.5)
+        rel_widths = c(0.5, 1, 0.5),
+        labels = "A",
+        label_size = 26
     ),
     plot_grid(
         p2 + theme(legend.position = "none"),
@@ -185,15 +184,18 @@ plot_grid(
         p5 + theme(legend.position = "none"),
         nrow = 2,
         align = "vh",
-        axis = "tblr"
+        axis = "tblr",
+        labels = c("B", "", "C", ""),
+        label_size = 26
     ),
     rel_heights = c(0.5, 1),
     nrow = 2
 )
 
-ggsave(file.path("figures", "feature_importance_populist.png"), width = 10, height = 10.5)
+ggsave(file.path("figures", "feature_importance_populist.png"), width = 8, height = 10)
 
-# Repeat for sensitivity analysis
+
+# Sensitivity analysis ------------------------------------------------------------------------
 
 df_feature_importance_populist_sensitivity <- read.csv(
     file.path(export_dir, "feature_importance_cv24p307_voting_behavior_populist.csv")

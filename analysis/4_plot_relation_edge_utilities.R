@@ -1,6 +1,4 @@
-#####################################################
-# Plot edge utilities for different network relations
-#####################################################
+# Plot edge utilities for different network relations -----------------------------------------
 
 library(dplyr)
 library(tidyr)
@@ -15,7 +13,7 @@ export_dir <- file.path("data", "export")
 combined_label <- "Neighbor/Colleague/Household"
 
 # Read relation edge utitlies
-df_edge_covariates_full <- read.csv(fs::path(export_dir, "edge_covariates.csv")) |>
+df_edge_covariates_full <- read.csv(file.path(export_dir, "edge_covariates.csv")) |>
     rowwise() |>
     mutate(
         # Extract dimension
@@ -105,7 +103,7 @@ create_edge_covariate_plot <- function(df) {
         geom_vline(xintercept = 0, linetype = "dashed") +
         scale_y_discrete(labels = convert_relation_labels) +
         xlim(c(-0.01, 0.015)) +
-        scale_size_continuous(guide = NULL, limits = c(0, 905098356), range = c(0, 4)) +
+        scale_size_continuous(guide = NULL, limits = c(0, max(df$edge_count)), range = c(0, 4)) +
         labs(
             x = "Edge utility",
             y = "Network relation type",
@@ -114,12 +112,10 @@ create_edge_covariate_plot <- function(df) {
         theme_half_open() +
         theme(
             axis.line.y = element_blank(),
-            axis.ticks.y = element_blank(),
             axis.title.y = element_blank(),
             axis.text = element_text(size = 10)
         ) +
-        panel_border() +
-        background_grid()
+        panel_border()
 
     return(p)
 }
@@ -157,9 +153,9 @@ plot_grid(
     label_size = 26
 )
 
-ggsave(file.path("figures", "edge_covariates_populist.png"), width = 10, height = 6)
+ggsave(file.path("figures", "relation_edge_utilities.png"), width = 8, height = 4.5)
 
-# Repeate for sensitivity analysis
+# Sensitivity analysis ------------------------------------------------------------------------
 
 df_edge_covariates_sensitivity <- df_edge_covariates_full |>
     filter(str_detect(filename, "2022") & dim == "20") |>
@@ -207,4 +203,4 @@ plot_grid(
     label_size = 26
 )
 
-ggsave(file.path("figures", "edge_covariates_sensitivity.png"), width = 8, height = 6)
+ggsave(file.path("figures", "relation_edge_utilities_sensitivity.png"), width = 10, height = 6)

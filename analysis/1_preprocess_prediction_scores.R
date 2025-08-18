@@ -1,6 +1,4 @@
-###############################################################
-# Preprocess prediction scores for Bayesian regression modeling
-###############################################################
+# Preprocess prediction scores for Bayesian regression modeling -------------------------------
 
 library(dplyr)
 library(tidyr)
@@ -108,7 +106,7 @@ df_combined <- rbind(
 
 write.csv(
   df_combined,
-  file = fs::path("data", "preprocessed", "prediction_scores.csv"),
+  file = file.path("data", "preprocessed", "prediction_scores.csv"),
   row.names = FALSE
 )
 
