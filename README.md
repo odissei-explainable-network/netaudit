@@ -71,6 +71,10 @@ We also provide code to perform community detection with the Louvain algorithm o
 
 All Python packages needed to run the code are in `requirements.txt`. The code is intended to run on Windows and Linux.
 
+## Tests
+
+Tests require `pytest` to be installed and can be run with `pytest tests/`.
+
 ## References
 
 Perozzi, B., Al-Rfou, R., & Skiena, S. (2014). DeepWalk: Online learning of social representations. *Proceedings of the 20th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining*, 701–710. https://doi.org/10.1145/2623330.2623732
